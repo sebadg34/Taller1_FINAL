@@ -50,28 +50,15 @@ void Principal::LecturaDeArchivos()
 		cout << "***************************************************" << endl;
 		while (getline(archivoClientes, linea)) {
 			//crear cliente
-			cout << linea << endl; //Imprimir linea
+			
 
 			stringstream ss(linea);
 			getline(ss, C_nombre, ';');
-			cout << C_nombre << endl; //Imprimir nombre
-			
-
 			getline(ss, C_apellido, ';');
-			cout << C_apellido << endl; //Imprimir apellido
-			
-
 			getline(ss, C_id, ';');
-			cout << C_id << endl; //Imprimir id
-			
-
-
 			getline(ss, C_ciudad, ';');
-			cout << C_ciudad << endl; //Imprimir ciudad
-			
-
 			getline(ss, C_numero, ';');
-			cout << C_numero << endl; //Imprimir numero
+			
 			
 			Client*clienteNuevo = new Client(C_nombre, C_apellido, C_id, C_ciudad, std::stoi(C_numero));
 			cout << "***************************************************" << endl;
@@ -118,23 +105,14 @@ void Principal::LecturaDeArchivos()
 
 		cout << "***************************************************" << endl;
 		while (getline(archivoAdmin, linea)) {
-			cout << linea << endl; //Imprimir linea
-
+			
 			stringstream ss(linea);
 			getline(ss, A_nombre, ';');
-			cout << A_nombre << endl; //Imprimir nombre
-
 			getline(ss, A_apellido, ';');
-			cout << A_apellido << endl; //Imprimir apellido
-
 			getline(ss, A_id, ';');
-			cout << A_id << endl; //Imprimir id
 
 			getline(ss, A_ciudad, ';');
-			cout << A_ciudad << endl; //Imprimir ciudad
-
 			getline(ss, A_monto, ';');
-			cout << A_monto << endl; //Imprimir monto
 			
 			Admin *nuevoAdmin =new Admin(A_nombre, A_apellido, A_id, A_ciudad, std::stoi(A_monto));
 			cout << "***************************************************" << endl;
@@ -192,14 +170,16 @@ void Principal::LecturaDeArchivos()
 			getline(ss, E_estado, ',');
 			
 
-			if (E_estado.compare("Realizado") == 0) {
+			if (E_estado == "Realizado") {
+				cout << "ESTADO REALIZADO" << endl;
+				
 				string cantEsp;
 				string cantAsis;
 
 				getline(ss, cantEsp, ',');
 				getline(ss, cantAsis, ',');
 				
-
+				cout << cantAsis << endl;
 
 				Event *eventoNuevo = new Event(E_nombre, E_ciudad, E_idCliente, E_idAdmin, E_id, E_tipo, E_estado, std::stoi(cantEsp),std::stoi(cantAsis));
 				le.AgregarEvento(eventoNuevo);
@@ -660,7 +640,7 @@ void Principal::ArchivoSalida()
 			}
 
 
-			ArchivoClientes << lc.GetLista()[i]->GetNombre() << ";" << lc.GetLista()[i]->GetApellido() << ";" << lc.GetLista()[i]->GetClienteID() << ";" << lc.GetLista()[i]->GetCiudad() << ";" << lc.GetLista()[i]->GetnTelefono() << ";"<< eventos <<  endl;
+			ArchivoClientes << lc.GetLista()[i]->GetNombre() << ";" << lc.GetLista()[i]->GetApellido() << ";" << lc.GetLista()[i]->GetClienteID() << ";" << lc.GetLista()[i]->GetCiudad() << ";" << lc.GetLista()[i]->GetnTelefono() << eventos <<  endl;
 			eventos = "";
 		}
 		ArchivoClientes.close();
@@ -676,12 +656,11 @@ void Principal::ArchivoSalida()
 			for (int i = 0; i < la.GetCantidad(); i++) {
 
 				for (int v = 0; v < la.GetLista()[i]->GetCantEventos(); v++) {
-
-					string eventos = eventos + ";" + la.GetLista()[i]->getEvento(v);
+					eventos = eventos + ";" + la.GetLista()[i]->getEvento(v);
 					
 				}
 
-				ArchivoAdmins << la.GetLista()[i]->Getnombre() << ";" << la.GetLista()[i]->GetApellido() << ";" << la.GetLista()[i]->GetAdminID() << ";" << la.GetLista()[i]->GetCiudad() << ";" << la.GetLista()[i]->GetMonto() << ";"<< eventos << std::endl;
+				ArchivoAdmins << la.GetLista()[i]->Getnombre() << ";" << la.GetLista()[i]->GetApellido() << ";" << la.GetLista()[i]->GetAdminID() << ";" << la.GetLista()[i]->GetCiudad() << ";" << la.GetLista()[i]->GetMonto() << eventos << std::endl;
 				eventos = "";
 				
 			}
@@ -693,11 +672,13 @@ void Principal::ArchivoSalida()
 		if (ArchivoEventos.is_open())
 		{//Algoritmo que verifica si el admin es despedido dependiendo de su monto
 			for (int i = 0; i < le.GetCantidad(); i++) {
-				if (le.GetLista()[i]->GetTipo() == "Realizado") {
-					ArchivoEventos << le.GetLista()[i]->Getnombre() << ";" << le.GetLista()[i]->Getciudad() << ";" << le.GetLista()[i]->GetClienteID() << ";" << le.GetLista()[i]->GetAdminID() << ";" << le.GetLista()[i]->GetnEventoID() << ";" << le.GetLista()[i]->GetTipo() << ";" << le.GetLista()[i]->GetEstado() << ";" << le.GetLista()[i]->GetCantEsperado() << ";" << le.GetLista()[i]->GetCantAsistente() <<endl;
+				if (le.GetLista()[i]->GetEstado() == "Realizado") {
+					
+					ArchivoEventos << le.GetLista()[i]->Getnombre() << "," << le.GetLista()[i]->Getciudad() << "," << le.GetLista()[i]->GetClienteID() << "," << le.GetLista()[i]->GetAdminID() << "," << le.GetLista()[i]->GetnEventoID() << "," << le.GetLista()[i]->GetTipo() << "," << le.GetLista()[i]->GetEstado() << "," << le.GetLista()[i]->GetCantEsperado() << "," << le.GetLista()[i]->GetCantAsistente() <<endl;
 				}
 				else {
-					ArchivoEventos << le.GetLista()[i]->Getnombre() << ";" << le.GetLista()[i]->Getciudad() << ";" << le.GetLista()[i]->GetClienteID() << ";" << le.GetLista()[i]->GetAdminID() << ";" << le.GetLista()[i]->GetnEventoID() << ";" << le.GetLista()[i]->GetTipo() << ";" << le.GetLista()[i]->GetEstado() << ";" << le.GetLista()[i]->GetCantEsperado() <<endl;
+					
+					ArchivoEventos << le.GetLista()[i]->Getnombre() << "," << le.GetLista()[i]->Getciudad() << "," << le.GetLista()[i]->GetClienteID() << "," << le.GetLista()[i]->GetAdminID() << "," << le.GetLista()[i]->GetnEventoID() << "," << le.GetLista()[i]->GetTipo() << "," << le.GetLista()[i]->GetEstado() << "," << le.GetLista()[i]->GetCantEsperado() << "," << endl;
 				}
 			}
 			ArchivoEventos.close();
