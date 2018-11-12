@@ -458,8 +458,24 @@ void Principal::AgregarEvento() {
 		//Se crea el evento
 		cout << "EVENTO CREADO" << endl;
 		cout << "**************************" << endl;
-		Event*eventoNuevo = new Event(nombre, ciudad, id, la.BuscarAdmin(ciudad), "E" + std::to_string(le.GetCantidad()+1), tipoEvento, "PorRealizar",std::stoi(cantidad), 0);
-		le.AgregarEvento(eventoNuevo);
+
+		try {
+			int cantVer = std::stoi(cantidad);
+			Event*eventoNuevo = new Event(nombre, ciudad, id, la.BuscarAdmin(ciudad), "E" + std::to_string(le.GetCantidad() + 1), tipoEvento, "PorRealizar", cantVer, 0);
+			le.AgregarEvento(eventoNuevo);
+		}
+			catch(const std::exception) {
+				cout << "cantidad invalida, evento no fue creado" << endl;
+				
+
+			}
+
+
+
+
+
+
+		
 	}
 	else {
 		//Se cancela la creacion de evento
@@ -496,9 +512,27 @@ void Principal::AgregarCliente() {
 	getline(cin, ciudad);
 	cout << "Ingresar el numero telefonico" << endl;
 	getline(cin, numero);
-	Client*clienteNuevo = new Client(nombre, apellido, "C" + std::to_string(lc.GetCantidad()+1), ciudad, std::stoi(numero));
-	lc.AgregarCliente(clienteNuevo);
-	cout << "Se regresara al menu agregar" << endl;
+
+
+	//algoritmo para pasar string a mayusculas
+	for (int i = 0; i < ciudad.length(); i++) {
+		ciudad[i] = tolower(ciudad[i]);
+	}
+	ciudad[0] = toupper(ciudad[0]); //hace mayuscula la primera letra 
+
+
+	try {
+		int numeroVer = std::stoi(numero);
+		
+		Client*clienteNuevo = new Client(nombre, apellido, "C" + std::to_string(lc.GetCantidad() + 1), ciudad, numeroVer);
+		lc.AgregarCliente(clienteNuevo);
+		cout << "Se regresara al menu agregar" << endl;
+	}
+	catch (const std::exception) {
+		cout << "Numero invalido, regrsando a menu" << endl;
+		
+	}
+	
 }
 
 
@@ -617,7 +651,7 @@ void Principal::ArchivoSalida()
 	{
 		string eventos = "";
 		
-		ArchivoClientes << "\n" << endl;
+		
 
 		for (int i = 0; i < lc.GetCantidad(); i++) {
 			for (int v = 0; v < lc.GetLista()[i]->GetCantEventos(); v++) {
@@ -626,12 +660,8 @@ void Principal::ArchivoSalida()
 			}
 
 
-			ArchivoClientes << lc.GetLista()[i]->GetNombre() << ";" << lc.GetLista()[i]->GetApellido() << ";" << lc.GetLista()[i]->GetClienteID() << ";" << lc.GetLista()[i]->GetCiudad() << ";" << lc.GetLista()[i]->GetnTelefono() << ";"<< eventos << "\n"<< endl;
-
-			
-
-
-
+			ArchivoClientes << lc.GetLista()[i]->GetNombre() << ";" << lc.GetLista()[i]->GetApellido() << ";" << lc.GetLista()[i]->GetClienteID() << ";" << lc.GetLista()[i]->GetCiudad() << ";" << lc.GetLista()[i]->GetnTelefono() << ";"<< eventos <<  endl;
+			eventos = "";
 		}
 		ArchivoClientes.close();
 
@@ -643,7 +673,7 @@ void Principal::ArchivoSalida()
 		{
 			string eventos = "";
 
-			for (int i = 0; i < lc.GetCantidad(); i++) {
+			for (int i = 0; i < la.GetCantidad(); i++) {
 
 				for (int v = 0; v < la.GetLista()[i]->GetCantEventos(); v++) {
 
@@ -651,14 +681,9 @@ void Principal::ArchivoSalida()
 					
 				}
 
-				ArchivoAdmins << la.GetLista()[i]->Getnombre() << ";" << la.GetLista()[i]->GetApellido() << ";" << la.GetLista()[i]->GetAdminID() << ";" << la.GetLista()[i]->GetCiudad() << ";" << la.GetLista()[i]->GetMonto() << ";"<< eventos << "\n"<< std::endl;
-
+				ArchivoAdmins << la.GetLista()[i]->Getnombre() << ";" << la.GetLista()[i]->GetApellido() << ";" << la.GetLista()[i]->GetAdminID() << ";" << la.GetLista()[i]->GetCiudad() << ";" << la.GetLista()[i]->GetMonto() << ";"<< eventos << std::endl;
+				eventos = "";
 				
-				
-
-
-
-
 			}
 			ArchivoAdmins.close();
 
@@ -669,17 +694,11 @@ void Principal::ArchivoSalida()
 		{//Algoritmo que verifica si el admin es despedido dependiendo de su monto
 			for (int i = 0; i < le.GetCantidad(); i++) {
 				if (le.GetLista()[i]->GetTipo() == "Realizado") {
-					ArchivoEventos << le.GetLista()[i]->Getnombre() << ";" << le.GetLista()[i]->Getciudad() << ";" << le.GetLista()[i]->GetClienteID() << ";" << le.GetLista()[i]->GetAdminID() << ";" << le.GetLista()[i]->GetnEventoID() << ";" << le.GetLista()[i]->GetTipo() << ";" << le.GetLista()[i]->GetEstado() << ";" << le.GetLista()[i]->GetCantEsperado() << ";" << le.GetLista()[i]->GetCantAsistente() << "\n" << endl;
+					ArchivoEventos << le.GetLista()[i]->Getnombre() << ";" << le.GetLista()[i]->Getciudad() << ";" << le.GetLista()[i]->GetClienteID() << ";" << le.GetLista()[i]->GetAdminID() << ";" << le.GetLista()[i]->GetnEventoID() << ";" << le.GetLista()[i]->GetTipo() << ";" << le.GetLista()[i]->GetEstado() << ";" << le.GetLista()[i]->GetCantEsperado() << ";" << le.GetLista()[i]->GetCantAsistente() <<endl;
 				}
 				else {
-					ArchivoEventos << le.GetLista()[i]->Getnombre() << ";" << le.GetLista()[i]->Getciudad() << ";" << le.GetLista()[i]->GetClienteID() << ";" << le.GetLista()[i]->GetAdminID() << ";" << le.GetLista()[i]->GetnEventoID() << ";" << le.GetLista()[i]->GetTipo() << ";" << le.GetLista()[i]->GetEstado() << ";" << le.GetLista()[i]->GetCantEsperado() << "\n" << endl;
+					ArchivoEventos << le.GetLista()[i]->Getnombre() << ";" << le.GetLista()[i]->Getciudad() << ";" << le.GetLista()[i]->GetClienteID() << ";" << le.GetLista()[i]->GetAdminID() << ";" << le.GetLista()[i]->GetnEventoID() << ";" << le.GetLista()[i]->GetTipo() << ";" << le.GetLista()[i]->GetEstado() << ";" << le.GetLista()[i]->GetCantEsperado() <<endl;
 				}
-
-
-
-
-
-
 			}
 			ArchivoEventos.close();
 

@@ -13,6 +13,7 @@ Admin::Admin(string nombre, string apellido, string AdminID, string ciudad, int 
 	this->AdminID = AdminID;
 	this->ciudad = ciudad;
 	this->monto = monto;
+	this->eventos = new string[100];
 	cantEventos = 0;
 }
 
@@ -50,7 +51,7 @@ string Admin::getEvento(int index)
 
 int Admin::GetMonto()
 {
-	return monto;
+	return this->monto;
 }
 
 void Admin::SetMonto(int monto)
@@ -60,6 +61,8 @@ void Admin::SetMonto(int monto)
 
 void Admin::AgregarEvento(string evento)
 {
+	eventos[cantEventos] = evento;
+	this->cantEventos++;
 }
 
 

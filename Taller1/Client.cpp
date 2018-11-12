@@ -13,7 +13,7 @@ Client::Client(string nombre, string apellido, string ClienteID, string ciudad, 
 	this->ClienteID = ClienteID;
 	this->ciudad = ciudad;
 	this->telefono = telefono;
-	this->eventos = new string[10];
+	this->eventos = new string[100];
 	this->cantEventos = 0;
 }
 
@@ -76,6 +76,8 @@ void Client::SetTelefono(int telefono)
 
 void Client::AgregarEvento(string evento)
 {
+	eventos[cantEventos] = evento;
+	this->cantEventos++;
 }
 
 int Client::GetCantEventos()

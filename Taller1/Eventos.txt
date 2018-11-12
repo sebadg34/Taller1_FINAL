@@ -1,22 +1,11 @@
-Dia de muertos;Antofagasta;C1;A1;E1;Social;Cancelado;2500
-
-HalloweenNight;Antofagasta;C1;A1;E5;Social;PorRealizar;3500
-
-Feria del Libro;Antofagasta;C3;A3;E7;Cultural;Realizado;2000
-
-Rally Dakar;Calama;C4;A2;E4;Deportivo;Realizado;4500
-
-CDA V/S AUD;Antofagasta;C3;A1;E2;Deportivo;PorRealizar;4000
-
-Red Bull Cerro Abajo;Valparaiso;C6;A6;E6;Deportivo;PorRealizar;3500
-
-Concierto Orquesta Sinfonica;Antofagasta;C1;A3;E3;Cultural;Realizado;2300
-
-Droid Festival 2018;Santiago;C5;A4;E8;Cultural;PorRealizar;3500
-
-CC V/S UCH;Santiago;C5;A4;E9;Deportivo;Realizado;5000
-
-Iquique Solidario;Iquique;C2;A5;E10;Social;PorRealizar;2000
-
-Campeonato de Surf 2018;Iquique;C2;A5;E11;Deportivo;PorRealizar;3600
-
+Dia de muertos,Antofagasta,C1,A1,E1,Social,Cancelado,2500,
+HalloweenNight,Antofagasta,C1,A1,E5,Social,PorRealizar,3500,
+Feria del Libro,Antofagasta,C3,A3,E7,Cultural,Realizado,2000,2000
+Rally Dakar,Calama,C4,A2,E4,Deportivo,Realizado,4500,4300
+CDA V/S AUD,Antofagasta,C3,A1,E2,Deportivo,PorRealizar,4000,
+Red Bull Cerro Abajo,Valparaiso,C6,A6,E6,Deportivo,PorRealizar,3500,
+Concierto Orquesta Sinfonica,Antofagasta,C1,A3,E3,Cultural,Realizado,2300,2300
+Droid Festival 2018,Santiago,C5,A4,E8,Cultural,PorRealizar,3500,
+CC V/S UCH,Santiago,C5,A4,E9,Deportivo,Realizado,5000,5000
+Iquique Solidario,Iquique,C2,A5,E10,Social,PorRealizar,2000,
+Campeonato de Surf 2018,Iquique,C2,A5,E11,Deportivo,PorRealizar,3600,

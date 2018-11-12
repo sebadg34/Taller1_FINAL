@@ -35,8 +35,8 @@ Event ** ListEvent::GetLista()
 int ListEvent::EventoRealizado(string ID, int CantAsistes)
 {
 	int N_Evento = -1;
-	int MontoGanancia;
-	int MontoPerdida;
+	int MontoGanancia = 1;
+	int MontoPerdida = 1;
 	for (int i = 0; i < this->CantidadActual; i++) {
 		if (this->ListE[i]->GetnEventoID() == ID) {
 			if (this->ListE[i]->GetCantEsperado() > CantAsistes) {
