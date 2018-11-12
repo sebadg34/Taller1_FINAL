@@ -39,11 +39,11 @@ int ListEvent::EventoRealizado(string ID, int CantAsistes)
 	int MontoPerdida = 1;
 	for (int i = 0; i < this->CantidadActual; i++) {
 		if (this->ListE[i]->GetnEventoID() == ID) {
-			if (this->ListE[i]->GetCantEsperado() > CantAsistes) {
+			if (this->ListE[i]->GetCantEsperado() >= CantAsistes) {
 				N_Evento = i;
 			}
 			else {
-				cout << "no pueden asistir más personas de las esperadas " << endl;
+				cout << "no pueden asistir mÃ¡s personas de las esperadas " << endl;
 			}
 		}
 
@@ -62,9 +62,11 @@ int ListEvent::EventoRealizado(string ID, int CantAsistes)
 			MontoPerdida = 8;
 		}
 		int Utilidades = (this->ListE[N_Evento]->GetCantAsistente())*MontoGanancia - (CantAsistes*MontoPerdida);
+		this->ListE[N_Evento]->SetEstado("Realizado");
 		return Utilidades;
 
 	}
+	return 0;
 }
 
 int ListEvent::EventoCancelado(string ID)
@@ -87,9 +89,10 @@ int ListEvent::EventoCancelado(string ID)
 			MontoPerdida = 8;
 		}
 		int Utilidad = MontoPerdida * (this->ListE[N_Evento]->GetCantEsperado()) * 25 / 100 * -1;
+		this->ListE[N_Evento]->SetEstado("Cancelado");
 		return Utilidad;
 	}
-
+	return 0;
 }
 
 
